@@ -1,0 +1,338 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1782887547098,
+  "projectRoot": "/Users/peakom/worko/smartconnect",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {},
+  "hotPaths": [
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "accessCount": 60,
+      "lastAccessed": 1782894064083,
+      "type": "file"
+    },
+    {
+      "path": "docs/PRD.md",
+      "accessCount": 19,
+      "lastAccessed": 1782892800328,
+      "type": "file"
+    },
+    {
+      "path": "docs/DATA_MODEL.md",
+      "accessCount": 14,
+      "lastAccessed": 1782893257674,
+      "type": "file"
+    },
+    {
+      "path": "docs/API.md",
+      "accessCount": 4,
+      "lastAccessed": 1782893700405,
+      "type": "file"
+    },
+    {
+      "path": "docs/PERMISSION.md",
+      "accessCount": 3,
+      "lastAccessed": 1782893262175,
+      "type": "file"
+    },
+    {
+      "path": "server/src/tenant/tenant.module.ts",
+      "accessCount": 3,
+      "lastAccessed": 1782895995778,
+      "type": "file"
+    },
+    {
+      "path": "docs/原始需求.md",
+      "accessCount": 1,
+      "lastAccessed": 1782887630526,
+      "type": "file"
+    },
+    {
+      "path": "docs/TASKS.md",
+      "accessCount": 1,
+      "lastAccessed": 1782894409958,
+      "type": "file"
+    },
+    {
+      "path": "server/tsconfig.json",
+      "accessCount": 1,
+      "lastAccessed": 1782894645604,
+      "type": "file"
+    },
+    {
+      "path": "server/nest-cli.json",
+      "accessCount": 1,
+      "lastAccessed": 1782894646458,
+      "type": "file"
+    },
+    {
+      "path": "server/prisma/schema.prisma",
+      "accessCount": 1,
+      "lastAccessed": 1782894767745,
+      "type": "file"
+    },
+    {
+      "path": "server/prisma/seed.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894791152,
+      "type": "file"
+    },
+    {
+      "path": "server/prisma/migrations/rls.sql",
+      "accessCount": 1,
+      "lastAccessed": 1782894798416,
+      "type": "file"
+    },
+    {
+      "path": "server/src/main.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894810593,
+      "type": "file"
+    },
+    {
+      "path": "server/src/app.module.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894814743,
+      "type": "file"
+    },
+    {
+      "path": "server/src/prisma/prisma.service.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894862874,
+      "type": "file"
+    },
+    {
+      "path": "server/src/prisma/prisma.module.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894883170,
+      "type": "file"
+    },
+    {
+      "path": "server/src/common/decorators/current-tenant.decorator.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894883864,
+      "type": "file"
+    },
+    {
+      "path": "server/src/common/decorators/auth.decorator.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894884384,
+      "type": "file"
+    },
+    {
+      "path": "server/src/common/interceptors/response.interceptor.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894905871,
+      "type": "file"
+    },
+    {
+      "path": "server/src/common/filters/all-exceptions.filter.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894914055,
+      "type": "file"
+    },
+    {
+      "path": "server/src/common/guards/jwt-auth.guard.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782894938018,
+      "type": "file"
+    },
+    {
+      "path": "server/src/tenant/tenant.middleware.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782895936739,
+      "type": "file"
+    },
+    {
+      "path": "server/src/tenant/tenant-context.service.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782895994645,
+      "type": "file"
+    },
+    {
+      "path": "server/src/auth/auth.module.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896131312,
+      "type": "file"
+    },
+    {
+      "path": "server/src/auth/auth.service.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896143929,
+      "type": "file"
+    },
+    {
+      "path": "server/src/auth/auth.controller.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896182034,
+      "type": "file"
+    },
+    {
+      "path": "server/src/health/health.module.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896182905,
+      "type": "file"
+    },
+    {
+      "path": "server/src/health/health.controller.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896184026,
+      "type": "file"
+    },
+    {
+      "path": "server/src/modules/home/home.module.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896185030,
+      "type": "file"
+    },
+    {
+      "path": "server/src/modules/home/home.service.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896213910,
+      "type": "file"
+    },
+    {
+      "path": "server/src/modules/home/home.controller.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896216039,
+      "type": "file"
+    },
+    {
+      "path": "server/src/modules/project/project.module.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896229039,
+      "type": "file"
+    },
+    {
+      "path": "server/src/modules/project/project.service.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896262010,
+      "type": "file"
+    },
+    {
+      "path": "server/src/modules/project/project.controller.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896296645,
+      "type": "file"
+    },
+    {
+      "path": "server/src/modules/me/me.module.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896297850,
+      "type": "file"
+    },
+    {
+      "path": "server/src/modules/me/me.service.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896308400,
+      "type": "file"
+    },
+    {
+      "path": "server/src/modules/me/me.controller.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782896366580,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/pages/home/home.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782897675504,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/pages/home/home.wxml",
+      "accessCount": 1,
+      "lastAccessed": 1782897678219,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/pages/home/home.wxss",
+      "accessCount": 1,
+      "lastAccessed": 1782897683321,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/pages/home/home.json",
+      "accessCount": 1,
+      "lastAccessed": 1782897684231,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/components/score-bar/score-bar.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782897696983,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/components/score-bar/score-bar.wxml",
+      "accessCount": 1,
+      "lastAccessed": 1782897700994,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/components/score-bar/score-bar.wxss",
+      "accessCount": 1,
+      "lastAccessed": 1782897705515,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/components/score-bar/score-bar.json",
+      "accessCount": 1,
+      "lastAccessed": 1782897707022,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/pages/project-list/project-list.ts",
+      "accessCount": 1,
+      "lastAccessed": 1782897759119,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/pages/project-list/project-list.wxml",
+      "accessCount": 1,
+      "lastAccessed": 1782897760478,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/pages/project-list/project-list.wxss",
+      "accessCount": 1,
+      "lastAccessed": 1782897761675,
+      "type": "file"
+    },
+    {
+      "path": "miniapp/pages/project-list/project-list.json",
+      "accessCount": 1,
+      "lastAccessed": 1782897762223,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

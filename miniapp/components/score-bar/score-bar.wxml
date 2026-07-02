@@ -1,0 +1,11 @@
+<view class="score-bar">
+  <view class="bar-row" wx:for="{{bars}}" wx:key="label">
+    <text class="bar-label">{{item.label}}</text>
+    <view class="bar-track">
+      <view class="bar-fill" style="width: {{item.percent}}%; background: {{item.color}};"></view>
+    </view>
+    <text class="bar-val">{{item.percent}}</text>
+  </view>
+  <view class="warning" wx:if="{{bars[1].warning}}">⚠ 风险较高,谨慎决策</view>
+  <view class="count">{{reviewCountLabel}}</view>
+</view>

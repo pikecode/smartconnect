@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd server && npx prisma generate 2>&1 | tail -8\",\"timeout\":120000,\"description\":\"Regenerate prisma client\"}",
+  "error": "Exit code 1\n(eval):cd:1: no such file or directory: server",
+  "timestamp": "2026-07-01T09:09:27.317Z",
+  "retry_count": 1
+}

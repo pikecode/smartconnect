@@ -1,0 +1,11 @@
+.list-page { padding: 24rpx; }
+.search { margin-bottom: 24rpx; }
+.search-input { background: #fff; padding: 20rpx 24rpx; border-radius: 12rpx; font-size: 28rpx; }
+.card { background: #fff; border-radius: 12rpx; padding: 24rpx; margin-bottom: 16rpx; }
+.card-title { font-size: 32rpx; font-weight: 600; }
+.card-liner { font-size: 26rpx; color: #666; margin-top: 8rpx; }
+.card-tags { margin-top: 16rpx; }
+.tag { display: inline-block; font-size: 22rpx; padding: 4rpx 16rpx; border-radius: 8rpx; background: #eef; color: #336; margin-right: 12rpx; }
+.tag-green { background: #e6f4ea; color: #1e8e3e; }
+.tag-gold { background: #fef7e0; color: #b06000; }
+.empty { text-align: center; color: #999; padding: 48rpx; }

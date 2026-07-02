@@ -1,0 +1,8 @@
+.score-bar { padding: 16rpx 0; }
+.bar-row { display: flex; align-items: center; margin: 12rpx 0; }
+.bar-label { width: 120rpx; font-size: 24rpx; color: #333; }
+.bar-track { flex: 1; height: 16rpx; background: #eee; border-radius: 8rpx; margin: 0 16rpx; overflow: hidden; }
+.bar-fill { height: 100%; transition: width 0.3s; }
+.bar-val { width: 60rpx; text-align: right; font-size: 24rpx; color: #666; }
+.warning { color: #ea4335; font-size: 24rpx; margin-top: 8rpx; }
+.count { font-size: 22rpx; color: #999; margin-top: 8rpx; }

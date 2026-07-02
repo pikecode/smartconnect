@@ -1,0 +1,10 @@
+.home { padding: 24rpx; }
+.stats-bar { display: flex; justify-content: space-between; padding: 20rpx 24rpx; background: #1a73e8; color: #fff; border-radius: 12rpx; }
+.stat { font-size: 28rpx; font-weight: 600; }
+.recent { font-size: 24rpx; opacity: 0.9; }
+.slogan { margin: 24rpx 0; font-size: 36rpx; font-weight: 700; color: #1a2b4a; text-align: center; }
+.section-title { font-size: 30rpx; font-weight: 600; margin: 24rpx 0 16rpx; }
+.dynamic-card { background: #fff; border-radius: 12rpx; padding: 24rpx; margin-bottom: 16rpx; }
+.dyn-title { font-size: 28rpx; font-weight: 600; }
+.dyn-content { font-size: 24rpx; color: #666; margin-top: 8rpx; }
+.empty { text-align: center; color: #999; padding: 48rpx; }

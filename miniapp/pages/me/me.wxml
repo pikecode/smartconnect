@@ -1,0 +1,32 @@
+<view class="me">
+  <view class="profile">
+    <view class="phone">{{me?.user.phone || '未绑定手机号'}}</view>
+    <view class="src" wx:if="{{me}}">入口: {{me.entry_source === 'platform' ? '慧对接' : 'B端专属'}}</view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab {{tab === 'favorites' ? 'active' : ''}}" bindtap="switchTab" data-tab="favorites">收藏</view>
+    <view class="tab {{tab === 'joined' ? 'active' : ''}}" bindtap="switchTab" data-tab="joined">已加入</view>
+    <view class="tab {{tab === 'referrals' ? 'active' : ''}}" bindtap="switchTab" data-tab="referrals">下级</view>
+  </view>
+
+  <view wx:if="{{tab === 'favorites'}}">
+    <view class="item" wx:for="{{favorites}}" wx:key="project_id">{{item.title}}</view>
+    <view wx:if="{{favorites.length === 0}}" class="empty">暂无收藏</view>
+  </view>
+
+  <view wx:if="{{tab === 'joined'}}">
+    <view class="item" wx:for="{{joined}}" wx:key="project_id">
+      <view>{{item.title}}</view>
+      <view class="sub">{{item.joined_at}} {{item.unlock_contact ? '· 已解锁联系方式' : ''}}</view>
+    </view>
+    <view wx:if="{{joined.length === 0}}" class="empty">暂无加入</view>
+  </view>
+
+  <view wx:if="{{tab === 'referrals'}}">
+    <view class="item" wx:for="{{referrals}}" wx:key="user_id">
+      {{item.nickname || ('用户' + item.user_id)}} <text class="sub">加入 {{item.joined_count}}</text>
+    </view>
+    <view wx:if="{{referrals.length === 0}}" class="empty">暂无下级</view>
+  </view>
+</view>

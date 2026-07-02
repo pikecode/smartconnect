@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "lib": ["ES2022"],
+    "outDir": "dist",
+    "rootDir": ".",
+    "paths": { "@/*": ["./src/*"] }
+  },
+  "include": ["./**/*.ts", "typings/**/*.d.ts"],
+  "exclude": ["node_modules"]
+}

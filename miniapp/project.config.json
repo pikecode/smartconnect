@@ -1,0 +1,15 @@
+{
+  "miniprogramRoot": "./",
+  "projectname": "smartconnect-miniapp",
+  "description": "慧对接 SmartConnect C端小程序",
+  "appid": "REPLACE_WITH_TEST_APPID",
+  "setting": {
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.5.0"
+}

@@ -1,0 +1,14 @@
+<view class="list-page">
+  <view class="search">
+    <input class="search-input" placeholder="搜索项目(AI/电商/地区)" bindinput="onSearch" value="{{keyword}}" />
+  </view>
+  <view class="card" wx:for="{{items}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+    <view class="card-title">{{item.title}}</view>
+    <view class="card-liner">{{item.one_liner}}</view>
+    <view class="card-tags">
+      <text class="tag">{{item.category.name}}</text>
+      <text class="tag {{item.join_mode === 'free' ? 'tag-green' : 'tag-gold'}}">{{item.join_mode === 'free' ? '免费加入' : '付费加入'}}</text>
+    </view>
+  </view>
+  <view wx:if="{{items.length === 0 && !loading}}" class="empty">暂无项目</view>
+</view>

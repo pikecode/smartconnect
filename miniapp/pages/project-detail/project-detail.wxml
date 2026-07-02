@@ -1,0 +1,43 @@
+<view class="detail" wx:if="{{detail}}">
+  <view class="hero">
+    <view class="title">{{detail.title}}</view>
+    <view class="liner">{{detail.one_liner}}</view>
+    <view class="actions">
+      <button size="mini" bindtap="toggleFavorite">{{detail.is_favorited ? '已收藏' : '收藏'}}</button>
+      <button size="mini" type="primary" bindtap="joinProject" wx:if="{{!detail.is_joined}}">加入项目</button>
+      <text class="joined-tag" wx:else>已加入</text>
+    </view>
+  </view>
+
+  <score-bar wx:if="{{detail.score}}"
+    authenticity="{{detail.score.authenticity}}"
+    risk="{{detail.score.risk}}"
+    profitability="{{detail.score.profitability}}"
+    review-count="{{detail.score.review_count}}" />
+
+  <view class="section">
+    <view class="sec-title">项目简介</view><view class="sec-body">{{detail.intro}}</view>
+  </view>
+  <view class="section">
+    <view class="sec-title">愿景</view><view class="sec-body">{{detail.vision}}</view>
+  </view>
+  <view class="section">
+    <view class="sec-title">团队</view><view class="sec-body">{{detail.team}}</view>
+  </view>
+  <view class="section">
+    <view class="sec-title">合作要求</view><view class="sec-body">{{detail.join_requirement || '无'}}</view>
+  </view>
+
+  <view class="bp-locked" wx:if="{{detail.bp.locked}}">
+    🔒 商业计划书(BP) — 需付费 {{detail.bp.price / 100}} 元解锁
+  </view>
+
+  <view class="contact" wx:if="{{detail.is_joined && detail.contact}}">
+    <view class="sec-title">项目方联系方式(已加入可见)</view>
+    <view class="sec-body">联系人: {{detail.contact.name || '—'}}</view>
+    <view class="sec-body">电话: {{detail.contact.phone || '—'}}</view>
+    <view class="sec-body">微信: {{detail.contact.wechat || '—'}}</view>
+  </view>
+
+  <view class="qcc" wx:if="{{detail.qcc_url}}" bindtap="goQcc">📋 企业风险查询(企查查) →</view>
+</view>

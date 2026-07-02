@@ -1,0 +1,4 @@
+{
+  "desc": "慧对接小程序sitemap",
+  "rules": [{ "action": "allow", "page": "*" }]
+}

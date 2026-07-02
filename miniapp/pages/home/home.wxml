@@ -1,0 +1,16 @@
+<view class="home">
+  <view class="stats-bar" wx:if="{{home}}">
+    <text class="stat">{{home.stats.total_users}} 用户</text>
+    <text class="recent">最近浏览: {{home.stats.recent_viewers[0].nickname || '—'}}</text>
+  </view>
+  <view class="slogan" wx:if="{{home}}">{{home.slogan}}</view>
+
+  <view class="section-title">合作动态</view>
+  <view class="dynamic-list">
+    <view class="dynamic-card" wx:for="{{home.dynamics}}" wx:key="id" bindtap="goDetail" data-id="{{item.projectId}}">
+      <view class="dyn-title">{{item.title}}</view>
+      <view class="dyn-content">{{item.content}}</view>
+    </view>
+    <view wx:if="{{!home || home.dynamics.length === 0}}" class="empty">暂无动态</view>
+  </view>
+</view>
