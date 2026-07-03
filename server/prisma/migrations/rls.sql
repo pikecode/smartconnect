@@ -44,9 +44,13 @@ BEGIN
     EXECUTE format('ALTER TABLE %I FORCE ROW LEVEL SECURITY', t);
 
     -- 策略: b_id 必须等于当前会话变量; null b_id 不匹配(租户隔离)
+    -- 当 app.is_admin = 'true' 时, 管理员可跨租户读写
     EXECUTE format($f$
       CREATE POLICY tenant_isolation ON %I
-      USING (b_id = NULLIF(current_setting('app.b_id', true), '')::bigint)
+      USING (
+        NULLIF(current_setting('app.is_admin', true), '') = 'true'
+        OR b_id = NULLIF(current_setting('app.b_id', true), '')::bigint
+      )
     $f$, t);
   END LOOP;
 END $$;
@@ -83,13 +87,27 @@ CREATE POLICY platform_public_analysis ON project_expert_analysis
     (b_id = NULLIF(current_setting('app.b_id', true), '')::bigint)
   );
 
--- project_dynamic: B端入口时按 b_id 隔离, 平台入口时不设置 b_id 则按 approved 项目豁免
-DROP POLICY IF EXISTS platform_public_dynamic ON project_dynamic;
-CREATE POLICY platform_public_dynamic ON project_dynamic
+-- user_favorite / user_join: 按 userId 可见（平台入口用户能看自己的收藏/加入）
+-- 当 app.b_id 未设置时, 允许查自己 userId 的记录
+-- 同时仍受 b_id 隔离（B 端入口只能看自己 B 端内的）
+DROP POLICY IF EXISTS user_self ON user_favorite;
+CREATE POLICY user_self ON user_favorite
   FOR SELECT
   USING (
     (NULLIF(current_setting('app.b_id', true), '') IS NULL
-     AND EXISTS (SELECT 1 FROM project p WHERE p.id = project_id AND p.audit_status = 'approved'))
+     AND NULLIF(current_setting('app.user_id', true), '')::bigint IS NOT NULL
+     AND user_id = NULLIF(current_setting('app.user_id', true), '')::bigint)
+    OR
+    (b_id = NULLIF(current_setting('app.b_id', true), '')::bigint)
+  );
+
+DROP POLICY IF EXISTS user_self ON user_join;
+CREATE POLICY user_self ON user_join
+  FOR SELECT
+  USING (
+    (NULLIF(current_setting('app.b_id', true), '') IS NULL
+     AND NULLIF(current_setting('app.user_id', true), '')::bigint IS NOT NULL
+     AND user_id = NULLIF(current_setting('app.user_id', true), '')::bigint)
     OR
     (b_id = NULLIF(current_setting('app.b_id', true), '')::bigint)
   );

@@ -2,12 +2,14 @@ import { Injectable, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { TenantContextService } from '../../tenant/tenant-context.service';
 import { TenantContext } from '../../common/decorators/current-tenant.decorator';
+import { AuthService } from '../../auth/auth.service';
 
 @Injectable()
 export class MeService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly tenantCtx: TenantContextService,
+    private readonly authService: AuthService,
   ) {}
 
   async getMe(tenant: TenantContext): Promise<{
@@ -91,13 +93,14 @@ export class MeService {
   }
 
   async getBPortal(tenant: TenantContext): Promise<{ url: string; expires_at: string }> {
-    if (tenant.role !== 'b_tenant' && !tenant.bId) {
+    if (!tenant.bId) {
       throw new ForbiddenException({ code: 'AUTH_012', message: '仅B端用户可访问' });
     }
-    // 一次性初始化链接, 带伪 token(生产 HMAC 签名)
-    const fakeToken = `init_${tenant.bId}_${Date.now()}`;
+    const raw = this.authService.generateInitToken();
+    const tokenHash = this.authService.hashInitToken(raw);
     const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
-    return { url: `http://localhost:5173/init-password?token=${fakeToken}`, expires_at: expiresAt.toISOString() };
+    await this.prisma.bInitToken.create({ data: { bId: tenant.bId, tokenHash, expiresAt } });
+    return { url: `http://localhost:5173/init-password?token=${raw}`, expires_at: expiresAt.toISOString() };
   }
 
   private maskPhone(phone: string): string {

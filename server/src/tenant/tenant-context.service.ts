@@ -35,13 +35,16 @@ export class TenantContextService {
     coverBId?: number,
   ): Promise<T> {
     const bId = coverBId ?? tenant.bId;
-    if (bId === null || bId === undefined) {
-      return this.prisma.$transaction(fn);
-    }
+    const userId = tenant.userId;
 
     return this.prisma.$transaction(async (tx) => {
-      await tx.$executeRaw`SET LOCAL app.b_id = ${bId}`;
-      this.logger.debug(`RLS context set: b_id=${bId}`);
+      if (bId !== null && bId !== undefined) {
+        await tx.$executeRaw`SET LOCAL app.b_id = ${bId}`;
+      }
+      if (userId !== null && userId !== undefined) {
+        await tx.$executeRaw`SET LOCAL app.user_id = ${userId}`;
+      }
+      this.logger.debug(`RLS context set: b_id=${bId}, user_id=${userId}`);
       return fn(tx);
     });
   }

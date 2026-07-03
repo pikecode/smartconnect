@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
+const DEFAULT_BCRYPT = bcrypt.hashSync('huiduijie', 10);
 
 async function main() {
   // 类别字典
@@ -19,7 +21,7 @@ async function main() {
     update: {},
     create: {
       username: 'admin',
-      passwordHash: '$2b$10$mockhashreplacewithbcrypt', // TODO: bcrypt
+      passwordHash: DEFAULT_BCRYPT,
       role: 'super',
     },
   });
@@ -30,7 +32,7 @@ async function main() {
     update: {},
     create: {
       phone: '13800000001',
-      passwordHash: '$2b$10$mockhash',
+      passwordHash: DEFAULT_BCRYPT,
       name: '杭州运营中心',
       feeCap: 99900,
       moduleConfig: { project: true, user: true, finance: true, dynamic: true },
