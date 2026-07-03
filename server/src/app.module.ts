@@ -11,6 +11,7 @@ import { ProjectModule } from './modules/project/project.module';
 import { MeModule } from './modules/me/me.module';
 
 import { AdminModule } from './modules/admin/admin.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AdminModule } from './modules/admin/admin.module';
     ProjectModule,
     MeModule,
     AdminModule,
+    UserModule,
   ],
 })
 export class AppModule {}
