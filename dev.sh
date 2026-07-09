@@ -55,6 +55,8 @@ pnpm install --frozen-lockfile 2>/dev/null || pnpm install
 # ── 5. Prisma migrate + seed ─────────────────────────────
 info "运行 Prisma 迁移…"
 cd server
+# Prisma CLI 在 server/ 目录下找 .env，链接根目录 .env
+[ -f ../.env ] && [ ! -f .env ] && ln -s ../.env .env && info "已链接 .env 到 server/"
 FIRST_MIGRATE=false
 if ! npx prisma migrate status 2>&1 | grep -q "Database schema is up to date"; then
   npx prisma migrate dev --name init
