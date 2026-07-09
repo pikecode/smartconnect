@@ -33,6 +33,7 @@ class UpdateProjectDto {
   @IsOptional() @IsString() vision?: string;
   @IsOptional() @IsIn(['free', 'paid']) join_mode?: string;
   @IsOptional() @Type(() => Number) @IsInt() @Min(0) join_price?: number;
+  @IsOptional() @Type(() => Number) @IsInt() category_id?: number;
 }
 
 class JoinSettingDto {
