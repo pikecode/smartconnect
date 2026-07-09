@@ -8,3 +8,4 @@ coverage/
 .prisma/
 .omc/
 *.tsbuildinfo
+logs/
