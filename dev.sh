@@ -71,7 +71,7 @@ if [ "$FIRST_MIGRATE" = true ]; then
 fi
 cd "$ROOT"
 
-# ── 6. 启动后端 (:3000) ──────────────────────────────────
+# ── 6. 启动后端 (:13000) ──────────────────────────────────
 info "启动后端服务…"
 mkdir -p logs
 pnpm dev:server > logs/server.log 2>&1 &
@@ -91,7 +91,7 @@ for i in $(seq 1 30); do
   fi
 done
 
-# ── 7. 启动 B端/总后台 Web (:5173) ───────────────────────
+# ── 7. 启动 B端/总后台 Web (:15173) ───────────────────────
 info "启动前端管理后台…"
 pnpm dev:web > logs/web.log 2>&1 &
 WEB_PID=$!
