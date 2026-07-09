@@ -39,10 +39,11 @@ export class TenantContextService {
 
     return this.prisma.$transaction(async (tx) => {
       if (bId !== null && bId !== undefined) {
-        await tx.$executeRaw`SET LOCAL app.b_id = ${bId}`;
+        // SET LOCAL 不支持参数化查询，bId/userId 为内部整数，安全使用字面量
+        await tx.$executeRawUnsafe(`SET LOCAL "app.b_id" = '${Number(bId)}'`);
       }
       if (userId !== null && userId !== undefined) {
-        await tx.$executeRaw`SET LOCAL app.user_id = ${userId}`;
+        await tx.$executeRawUnsafe(`SET LOCAL "app.user_id" = '${Number(userId)}'`);
       }
       this.logger.debug(`RLS context set: b_id=${bId}, user_id=${userId}`);
       return fn(tx);

@@ -13,7 +13,7 @@ export class AdminService {
   /** 事务内执行跨租户操作，设 app.is_admin = 'true' 绕过 RLS 租户隔离 */
   private async bypass<T>(fn: (tx: Parameters<Parameters<PrismaService['$transaction']>[0]>[0]) => Promise<T>): Promise<T> {
     return this.prisma.$transaction(async (tx) => {
-      await tx.$executeRaw`SET LOCAL app.is_admin = 'true'`;
+      await tx.$executeRawUnsafe(`SET LOCAL "app.is_admin" = 'true'`);
       return fn(tx);
     });
   }
