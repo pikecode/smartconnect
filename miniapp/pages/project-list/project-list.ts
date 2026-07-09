@@ -14,11 +14,11 @@ Page<{ items: ProjectListItem[]; keyword: string; loading: boolean }, {}>({
   async load() {
     this.setData({ loading: true });
     try {
-      const res = await request<{ items: ProjectListItem[] }>({
+      const items = await request<ProjectListItem[]>({
         url: '/c/project',
         data: { keyword: this.data.keyword },
       });
-      this.setData({ items: res.items, loading: false });
+      this.setData({ items: items ?? [], loading: false });
     } catch {
       this.setData({ loading: false });
     }
