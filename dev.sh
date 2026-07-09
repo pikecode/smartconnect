@@ -14,6 +14,25 @@ warn()  { echo -e "${YELLOW}[!]${NC}   $*"; }
 command -v docker  >/dev/null || { warn "需要 Docker"; exit 1; }
 command -v pnpm    >/dev/null || { warn "需要 pnpm"; exit 1; }
 
+# ── 1b. 确保 Docker daemon 在运行 ────────────────────────
+if ! docker info >/dev/null 2>&1; then
+  warn "Docker daemon 未运行，尝试启动 Docker Desktop…"
+  if [ "$(uname)" = "Darwin" ]; then
+    open -a Docker
+    info "等待 Docker Desktop 启动（最多 60 秒）…"
+    for i in $(seq 1 60); do
+      docker info >/dev/null 2>&1 && break
+      sleep 1
+      printf "."
+    done
+    echo ""
+    docker info >/dev/null 2>&1 || { warn "Docker 启动失败，请手动打开 Docker Desktop 后重试"; exit 1; }
+    ok "Docker Desktop 已就绪"
+  else
+    warn "请手动启动 Docker daemon 后重试"; exit 1
+  fi
+fi
+
 # ── 2. 复制 .env（首次）─────────────────────────────────
 if [ ! -f .env ]; then
   cp .env.example .env
