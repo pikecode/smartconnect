@@ -100,7 +100,7 @@ export class MeService {
     const tokenHash = this.authService.hashInitToken(raw);
     const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
     await this.prisma.bInitToken.create({ data: { bId: tenant.bId, tokenHash, expiresAt } });
-    return { url: `http://localhost:5173/init-password?token=${raw}`, expires_at: expiresAt.toISOString() };
+    return { url: `http://localhost:15173/init-password?token=${raw}`, expires_at: expiresAt.toISOString() };
   }
 
   private maskPhone(phone: string): string {

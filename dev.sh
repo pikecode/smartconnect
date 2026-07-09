@@ -81,8 +81,8 @@ echo $SERVER_PID > logs/server.pid
 # 等后端就绪
 info "等待后端就绪…"
 for i in $(seq 1 30); do
-  if curl -sf http://localhost:3000/api/health >/dev/null 2>&1; then
-    ok "后端已就绪 http://localhost:3000"
+  if curl -sf http://localhost:13000/api/health >/dev/null 2>&1; then
+    ok "后端已就绪 http://localhost:13000"
     break
   fi
   sleep 1
@@ -104,15 +104,15 @@ echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━
 echo -e "${GREEN}  慧对接 SmartConnect 已启动${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "  API      ${CYAN}http://localhost:3000/api${NC}"
-echo -e "  健康检查  ${CYAN}http://localhost:3000/api/health${NC}"
-echo -e "  管理后台  ${CYAN}http://localhost:5173${NC}  (B端/总后台)"
+echo -e "  API      ${CYAN}http://localhost:13000/api${NC}"
+echo -e "  健康检查  ${CYAN}http://localhost:13000/api/health${NC}"
+echo -e "  管理后台  ${CYAN}http://localhost:15173${NC}  (B端/总后台)"
 echo ""
 echo -e "  测试账号 B端:     13800000001 / huiduijie"
 echo -e "  测试账号 总后台:  admin / huiduijie"
 echo ""
 echo -e "  小程序: 在微信开发者工具导入 ${CYAN}miniapp/${NC} 目录"
-echo -e "         API 已配置 http://localhost:3000/api"
+echo -e "         API 已配置 http://localhost:13000/api"
 echo ""
 echo -e "  日志:  tail -f logs/server.log"
 echo -e "         tail -f logs/web.log"

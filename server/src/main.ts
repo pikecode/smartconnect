@@ -9,7 +9,7 @@ async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
 
   const configService = app.get(ConfigService);
-  const port = Number(configService.get<string>('PORT') ?? '3000');
+  const port = Number(configService.get<string>('PORT') ?? '13000');
   const logger = new Logger('Bootstrap');
 
   app.setGlobalPrefix('api');

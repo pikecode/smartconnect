@@ -26,7 +26,7 @@ function parseScene(scene: string): Record<string, string> {
 
 App<AppData>({
   globalData: {
-    apiBase: 'http://localhost:3000/api',
+    apiBase: 'http://localhost:13000/api',
     token: null,
     sceneBId: null,
     sceneSig: null,
