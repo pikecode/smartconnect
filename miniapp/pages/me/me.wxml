@@ -1,6 +1,7 @@
 <view class="me">
   <view class="profile">
-    <view class="phone">{{me?.user.phone || '未绑定手机号'}}</view>
+    <view class="phone" wx:if="{{me}}">{{me.user.phone || '未绑定手机号'}}</view>
+    <view class="phone" wx:else>未绑定手机号</view>
     <view class="src" wx:if="{{me}}">入口: {{me.entry_source === 'platform' ? '慧对接' : 'B端专属'}}</view>
   </view>
 
