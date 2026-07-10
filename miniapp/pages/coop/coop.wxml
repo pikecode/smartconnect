@@ -1,0 +1,12 @@
+<view class="coop">
+  <view class="card" wx:for="{{centers}}" wx:key="id">
+    <view class="city">{{item.city_name}} 运营中心</view>
+    <view class="addr" wx:if="{{item.address}}">📍 {{item.address}}</view>
+    <view class="contact" wx:if="{{item.contact_name}}">联系人: {{item.contact_name}}</view>
+    <view class="actions">
+      <button size="mini" bindtap="joinCircle" data-id="{{item.id}}">入圈</button>
+      <button size="mini" bindtap="applyPartner" data-id="{{item.id}}">申请合伙人</button>
+    </view>
+  </view>
+  <view wx:if="{{centers.length === 0}}" class="empty">暂无运营中心</view>
+</view>

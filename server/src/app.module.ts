@@ -14,6 +14,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { UserModule } from './modules/user/user.module';
 import { PayModule } from './modules/pay/pay.module';
 import { CommissionModule } from './modules/commission/commission.module';
+import { CoopModule } from './modules/coop/coop.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { CommissionModule } from './modules/commission/commission.module';
     UserModule,
     PayModule,
     CommissionModule,
+    CoopModule,
   ],
 })
 export class AppModule {}

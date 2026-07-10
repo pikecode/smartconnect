@@ -396,4 +396,36 @@ export class ProjectService {
 
     return { apply_id: project.id };
   }
+
+  // ── 用户评价(v0.3) ────────────────────────────
+
+  async getReviews(projectId: number) {
+    const reviews = await this.prisma.userScoreReview.findMany({
+      where: { projectId },
+      orderBy: { createdAt: 'desc' },
+      take: 20,
+      include: { cUser: { select: { id: true, nickname: true } } },
+    });
+    return { items: reviews.map(r => ({ user_id: r.cUser.id, nickname: r.cUser.nickname, authenticity: r.authenticity, risk: r.risk, profitability: r.profitability, created_at: r.createdAt })) };
+  }
+
+  async submitReview(tenant: TenantContext, projectId: number, data: { authenticity: number; risk: number; profitability: number }) {
+    if (!tenant.userId) throw new NotFoundException({ code: 'TENANT_002', message: '无用户上下文' });
+
+    const join = await this.prisma.userJoin.findUnique({ where: { userId_projectId: { userId: tenant.userId, projectId } } });
+    if (!join) throw new ConflictException({ code: 'BIZ_003', message: '未加入项目不可评价' });
+
+    const hours24 = Date.now() - join.joinedAt.getTime();
+    if (hours24 < 24 * 60 * 60 * 1000) throw new ConflictException({ code: 'BIZ_004', message: '加入未满24小时' });
+
+    const bId = join.bId;
+    const review = await this.tenantCtx.runInTenant(tenant, async (tx) => {
+      const existing = await tx.userScoreReview.findUnique({ where: { userId_projectId: { userId: tenant.userId!, projectId } } });
+      if (existing) {
+        return tx.userScoreReview.update({ where: { id: existing.id }, data: { authenticity: data.authenticity, risk: data.risk, profitability: data.profitability } });
+      }
+      return tx.userScoreReview.create({ data: { userId: tenant.userId!, projectId, bId, authenticity: data.authenticity, risk: data.risk, profitability: data.profitability } });
+    }, bId);
+    return { review_id: review.id };
+  }
 }

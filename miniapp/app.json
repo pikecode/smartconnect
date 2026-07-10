@@ -5,7 +5,9 @@
     "pages/project-detail/project-detail",
     "pages/me/me",
     "pages/kyc/kyc",
-    "pages/commission/commission"
+    "pages/commission/commission",
+    "pages/coop/coop",
+    "pages/resource/resource"
   ],
   "window": {
     "navigationBarTitleText": "慧对接",

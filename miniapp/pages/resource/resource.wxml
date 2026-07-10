@@ -1,0 +1,13 @@
+<view class="resource">
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索资源/需求" bindinput="onSearch" value="{{keyword}}" />
+  </view>
+  <view class="user-card" wx:for="{{items}}" wx:key="user_id">
+    <view class="nickname">{{item.nickname || ('用户' + item.user_id)}}</view>
+    <view class="tags">
+      <view class="tag res" wx:for="{{item.resources}}" wx:for-item="r" wx:key="id">{{r.content}}</view>
+    </view>
+    <button size="mini" bindtap="requestSwap" data-uid="{{item.user_id}}">申请微信互换</button>
+  </view>
+  <view wx:if="{{items.length === 0}}" class="empty">暂无用户资源</view>
+</view>

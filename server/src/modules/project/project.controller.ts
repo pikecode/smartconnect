@@ -4,6 +4,7 @@ import {
 import { IsInt, IsOptional, IsString, Min, IsIn } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ProjectService } from './project.service';
+import { ScoreService } from './score.service';
 import { CurrentTenant } from '../../common/decorators/current-tenant.decorator';
 import { TenantContext } from '../../common/decorators/current-tenant.decorator';
 import { Public, Roles } from '../../common/decorators/auth.decorator';
@@ -118,5 +119,33 @@ export class BProjectController {
   @Put(':id/join-setting')
   bJoinSetting(@CurrentTenant() tenant: TenantContext, @Param('id', ParseIntPipe) id: number, @Body() dto: JoinSettingDto) {
     return this.project.bJoinSetting(tenant, id, dto);
+  }
+}
+
+class ReviewDto {
+  @Type(() => Number) @IsInt() @Min(1) authenticity!: number;
+  @Type(() => Number) @IsInt() @Min(1) risk!: number;
+  @Type(() => Number) @IsInt() @Min(1) profitability!: number;
+}
+
+@UseGuards()
+@Controller('c/project')
+export class ReviewController {
+  constructor(
+    private readonly project: ProjectService,
+    private readonly score: ScoreService,
+  ) {}
+
+  @Get(':id/reviews')
+  reviews(@Param('id', ParseIntPipe) id: number) {
+    return this.project.getReviews(id);
+  }
+
+  @Post(':id/reviews')
+  async submitReview(@CurrentTenant() tenant: TenantContext, @Param('id', ParseIntPipe) id: number, @Body() dto: ReviewDto) {
+    const result = await this.project.submitReview(tenant, id, dto);
+    // 异步触发聚合重算
+    this.score.recalculate(id).catch(() => {});
+    return result;
   }
 }
