@@ -81,7 +81,8 @@ model BTenant {
   name          String
   cityCenterId  Int?          @map("city_center_id")
   status        BTenantStatus @default(active)
-  feeCap        Int           @default(99900) @map("fee_cap") // 分
+  feeCap        Int           @default(99900) @map("fee_cap")
+  commissionRate Int          @default(10) @map("commission_rate") // 百分比 0-100
   moduleConfig  Json          @default("{}") @map("module_config")
   createdAt     DateTime      @default(now()) @map("created_at")
 
@@ -94,6 +95,7 @@ model BTenant {
   bOrders              BOrder[]
   projectDynamics      ProjectDynamic[]
   initTokens           BInitToken[]
+  commissions          Commission[]
 
   @@map("b_tenant")
 }
@@ -226,6 +228,8 @@ model CUser {
   referralsReceived UserReferral[]     @relation("ReferredReferrals")
   scoreReviews     UserScoreReview[]
   cOrders          COrder[]
+  commissions      Commission[]
+  kyc              UserKyc?
 
   @@map("c_user")
 }
@@ -359,6 +363,7 @@ model COrder {
 
   cUser   CUser   @relation(fields: [userId], references: [id])
   bTenant BTenant @relation(fields: [bId], references: [id])
+  commissions Commission[]
 
   @@index([bId, status])
   @@map("c_order")
@@ -395,4 +400,44 @@ model BInitToken {
 
   @@index([bId])
   @@map("b_init_token")
+}
+
+// ============ 分佣记录(v0.2) ============
+
+model Commission {
+  id          Int      @id @default(autoincrement())
+  orderId     Int      @map("order_id")
+  referrerId  Int      @map("referrer_id")
+  bId         Int      @map("b_id")
+  amount      Int
+  rate        Int
+  status      String   @default("pending") // pending/frozen/settled/reversed
+  settleBatch String?  @map("settle_batch")
+  createdAt   DateTime @default(now()) @map("created_at")
+  settledAt   DateTime? @map("settled_at")
+
+  order    COrder @relation(fields: [orderId], references: [id])
+  referrer CUser  @relation(fields: [referrerId], references: [id])
+  bTenant  BTenant @relation(fields: [bId], references: [id])
+
+  @@index([referrerId, status])
+  @@index([bId])
+  @@map("commission")
+}
+
+// ============ 实名认证KYC(v0.2) ============
+
+model UserKyc {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @unique @map("user_id")
+  realName    String   @map("real_name")
+  idCardHash  String   @map("id_card_hash")
+  idCardEnc   String   @map("id_card_enc")
+  verified    String   @default("pending") // pending/approved/rejected
+  verifiedAt  DateTime? @map("verified_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  cUser CUser @relation(fields: [userId], references: [id])
+
+  @@map("user_kyc")
 }

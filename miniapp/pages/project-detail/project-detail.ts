@@ -42,9 +42,38 @@ Page<{ detail: ProjectDetail | null; id: number }, {}>({
 
   async joinProject() {
     try {
-      await request({ url: `/c/project/${this.data.id}/join`, method: 'POST' });
-      wx.showToast({ title: '加入成功', icon: 'success' });
-      this.loadDetail(this.data.id);
+      const res = await request<{ joined: boolean; requires_payment?: boolean; project_id?: number }>({
+        url: `/c/project/${this.data.id}/join`, method: 'POST',
+      });
+      if ((res as { requires_payment?: boolean }).requires_payment) {
+        // 付费加入: 先下单再调起支付
+        await this.requestPayment('join_project');
+      } else {
+        wx.showToast({ title: '加入成功', icon: 'success' });
+        this.loadDetail(this.data.id);
+      }
+    } catch { /* toast 内 */ }
+  },
+
+  async unlockBp() {
+    await this.requestPayment('bp_unlock');
+  },
+
+  async requestPayment(type: 'join_project' | 'bp_unlock') {
+    try {
+      const order = await request<{ orderId: number; payParams: { appId: string; timeStamp: string; nonceStr: string; package: string; signType: string; paySign: string } }>({
+        url: '/c/pay/order', method: 'POST',
+        data: { type, project_id: this.data.id },
+      });
+      wx.requestPayment({
+        timeStamp: order.payParams.timeStamp,
+        nonceStr: order.payParams.nonceStr,
+        package: order.payParams.package,
+        signType: order.payParams.signType as 'RSA',
+        paySign: order.payParams.paySign,
+        success: () => { wx.showToast({ title: '支付成功', icon: 'success' }); this.loadDetail(this.data.id); },
+        fail: (e) => { if ((e as { errMsg: string }).errMsg !== 'requestPayment:fail cancel') wx.showToast({ title: '支付失败', icon: 'none' }); },
+      });
     } catch { /* toast 内 */ }
   },
 

@@ -1,0 +1,21 @@
+<view class="kyc">
+  <view class="status-bar" wx:if="{{status === 'approved'}}">
+    <text class="ok">✓ 已完成实名认证</text>
+  </view>
+  <view class="status-bar pending" wx:elif="{{status === 'pending'}}">
+    <text>审核中，请等待</text>
+  </view>
+
+  <view wx:if="{{status !== 'approved'}}">
+    <view class="form-item">
+      <view class="label">真实姓名</view>
+      <input class="input" placeholder="请输入真实姓名" bindinput="onNameInput" value="{{realName}}" />
+    </view>
+    <view class="form-item">
+      <view class="label">身份证号</view>
+      <input class="input" placeholder="请输入身份证号" bindinput="onIdCardInput" value="{{idCard}}" />
+    </view>
+    <button class="btn" type="primary" bindtap="submit" loading="{{loading}}" disabled="{{loading}}">提交认证</button>
+    <view class="tips">信息仅用于提现实名校验，AES 加密存储</view>
+  </view>
+</view>

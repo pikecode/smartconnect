@@ -219,7 +219,8 @@ export class ProjectService {
     const projBId = project.bId;
 
     if (project.joinMode !== 'free') {
-      throw new ConflictException({ code: 'BIZ_062', message: '付费加入需v0.2支付' });
+      // 付费加入: 返回需支付标志，由前端调 /c/pay/order
+      return { joined: false, requires_payment: true, project_id: projectId } as unknown as { joined: true };
     }
 
     try {

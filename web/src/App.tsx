@@ -9,6 +9,7 @@ import UserDataPage from './pages/UserData';
 import AdminBPage from './pages/AdminB';
 import AdminProjectPage from './pages/AdminProject';
 import AdminDashboardPage from './pages/AdminDashboard';
+import FinancePage from './pages/Finance';
 
 const { Content } = Layout;
 
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/projects" element={<ProjectListPage />} />
           <Route path="/users" element={<UserDataPage />} />
+          <Route path="/finance" element={<FinancePage />} />
           {/* 总后台 */}
           <Route path="/admin/b" element={<AdminBPage />} />
           <Route path="/admin/projects" element={<AdminProjectPage />} />

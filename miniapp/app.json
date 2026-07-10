@@ -3,7 +3,9 @@
     "pages/home/home",
     "pages/project-list/project-list",
     "pages/project-detail/project-detail",
-    "pages/me/me"
+    "pages/me/me",
+    "pages/kyc/kyc",
+    "pages/commission/commission"
   ],
   "window": {
     "navigationBarTitleText": "慧对接",

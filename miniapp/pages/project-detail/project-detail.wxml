@@ -4,7 +4,9 @@
     <view class="liner">{{detail.one_liner}}</view>
     <view class="actions">
       <button size="mini" bindtap="toggleFavorite">{{detail.is_favorited ? '已收藏' : '收藏'}}</button>
-      <button size="mini" type="primary" bindtap="joinProject" wx:if="{{!detail.is_joined}}">加入项目</button>
+      <button size="mini" type="primary" bindtap="joinProject" wx:if="{{!detail.is_joined}}">
+        {{detail.join_mode === 'paid' ? '付费加入 ¥' + (detail.join_price/100) : '免费加入'}}
+      </button>
       <text class="joined-tag" wx:else>已加入</text>
     </view>
   </view>
@@ -30,6 +32,7 @@
 
   <view class="bp-locked" wx:if="{{detail.bp.locked}}">
     🔒 商业计划书(BP) — 需付费 {{detail.bp.price / 100}} 元解锁
+    <button size="mini" type="primary" bindtap="unlockBp" style="margin-top:16rpx">解锁 BP</button>
   </view>
 
   <view class="contact" wx:if="{{detail.is_joined && detail.contact}}">

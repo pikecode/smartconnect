@@ -5,6 +5,11 @@
     <view class="src" wx:if="{{me}}">入口: {{me.entry_source === 'platform' ? '慧对接' : 'B端专属'}}</view>
   </view>
 
+  <view class="shortcuts">
+    <navigator url="/pages/commission/commission" class="shortcut-item">💰 我的佣金</navigator>
+    <navigator url="/pages/kyc/kyc" class="shortcut-item">🪪 实名认证</navigator>
+  </view>
+
   <view class="tabs">
     <view class="tab {{tab === 'favorites' ? 'active' : ''}}" bindtap="switchTab" data-tab="favorites">收藏</view>
     <view class="tab {{tab === 'joined' ? 'active' : ''}}" bindtap="switchTab" data-tab="joined">已加入</view>

@@ -17,6 +17,7 @@ export default function MainLayout() {
     { key: '/dashboard', icon: <HomeOutlined />, label: '看板' },
     { key: '/projects', icon: <ProjectOutlined />, label: '项目管理' },
     { key: '/users', icon: <TeamOutlined />, label: '用户数据' },
+    { key: '/finance', icon: <CrownOutlined />, label: '财务' },
   ];
 
   const adminItems = [

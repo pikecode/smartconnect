@@ -1,0 +1,14 @@
+<view class="comm">
+  <view class="summary" wx:if="{{summary}}">
+    <view class="card"><view class="amount">{{summary.pending / 100}}</view><view class="label">待结算(元)</view></view>
+    <view class="card"><view class="amount">{{summary.settled / 100}}</view><view class="label">已结算(元)</view></view>
+    <view class="card btn-card" bindtap="goWithdraw"><view class="amount">{{summary.withdrawable / 100}}</view><view class="label">可提现 →</view></view>
+  </view>
+  <view class="list">
+    <view class="item" wx:for="{{items}}" wx:key="id">
+      <view class="row"><text>订单#{{item.order_id}}</text><text class="amount-{{item.status}}">+{{item.amount / 100}}元</text></view>
+      <view class="sub">{{item.created_at}} · {{item.status === 'pending' ? '待结算' : item.status === 'settled' ? '已结算' : '已冲正'}}</view>
+    </view>
+    <view wx:if="{{items.length === 0}}" class="empty">暂无佣金记录</view>
+  </view>
+</view>
