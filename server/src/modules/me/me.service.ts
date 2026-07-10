@@ -1,4 +1,4 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
+import { Injectable, ForbiddenException, Logger } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { TenantContextService } from '../../tenant/tenant-context.service';
 import { TenantContext } from '../../common/decorators/current-tenant.decorator';
@@ -6,6 +6,7 @@ import { AuthService } from '../../auth/auth.service';
 
 @Injectable()
 export class MeService {
+  private readonly logger = new Logger(MeService.name);
   constructor(
     private readonly prisma: PrismaService,
     private readonly tenantCtx: TenantContextService,
@@ -101,6 +102,23 @@ export class MeService {
     const expiresAt = new Date(Date.now() + 30 * 60 * 1000);
     await this.prisma.bInitToken.create({ data: { bId: tenant.bId, tokenHash, expiresAt } });
     return { url: `http://localhost:15173/init-password?token=${raw}`, expires_at: expiresAt.toISOString() };
+  }
+
+  async withdraw(tenant: TenantContext, amount: number): Promise<{ withdraw_id: string; status: string }> {
+    if (!tenant.userId) throw new ForbiddenException({ code: 'AUTH_012', message: '未认证' });
+    const kyc = await this.prisma.userKyc.findUnique({ where: { userId: tenant.userId }, select: { verified: true } });
+    if (kyc?.verified !== 'approved') throw new ForbiddenException({ code: 'BIZ_050', message: '请先完成实名认证' });
+    if (amount < 1000) throw new ForbiddenException({ code: 'BIZ_052', message: '单笔最低提现 10 元' });
+
+    const balance = await this.prisma.commission.aggregate({
+      where: { referrerId: tenant.userId, status: 'settled' }, _sum: { amount: true },
+    });
+    if ((balance._sum.amount ?? 0) < amount) throw new ForbiddenException({ code: 'BIZ_051', message: '余额不足' });
+
+    // 简化: 生成提现记录 (生产接微信提现API)
+    const id = `wd_${tenant.userId}_${Date.now()}`;
+    this.logger.log(`Withdraw request: user=${tenant.userId} amount=${amount} id=${id}`);
+    return { withdraw_id: id, status: 'processing' };
   }
 
   private maskPhone(phone: string): string {

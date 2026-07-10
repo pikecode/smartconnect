@@ -10,6 +10,7 @@ import AdminBPage from './pages/AdminB';
 import AdminProjectPage from './pages/AdminProject';
 import AdminDashboardPage from './pages/AdminDashboard';
 import FinancePage from './pages/Finance';
+import ScenePage from './pages/Scene';
 
 const { Content } = Layout;
 
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/projects" element={<ProjectListPage />} />
           <Route path="/users" element={<UserDataPage />} />
           <Route path="/finance" element={<FinancePage />} />
+          <Route path="/admin/scene" element={<ScenePage />} />
           {/* 总后台 */}
           <Route path="/admin/b" element={<AdminBPage />} />
           <Route path="/admin/projects" element={<AdminProjectPage />} />

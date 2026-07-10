@@ -1,9 +1,11 @@
-import { Controller, Get, UseGuards, ForbiddenException, Post } from '@nestjs/common';
+import { Controller, Get, UseGuards, Post, Body } from '@nestjs/common';
 import { MeService } from './me.service';
-import { CurrentTenant } from '../../common/decorators/current-tenant.decorator';
-import { TenantContext } from '../../common/decorators/current-tenant.decorator';
-import { Public } from '../../common/decorators/auth.decorator';
+import { CurrentTenant, TenantContext } from '../../common/decorators/current-tenant.decorator';
 import { PrismaService } from '../../prisma/prisma.service';
+import { IsInt, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class WithdrawDto { @Type(() => Number) @IsInt() @Min(1000) amount!: number; }
 
 @UseGuards()
 @Controller('c/me')
@@ -13,28 +15,10 @@ export class MeController {
     private readonly prisma: PrismaService,
   ) {}
 
-  @Get()
-  getMe(@CurrentTenant() tenant: TenantContext) {
-    return this.me.getMe(tenant);
-  }
-
-  @Get('favorites')
-  getFavorites(@CurrentTenant() tenant: TenantContext) {
-    return this.me.getFavorites(tenant);
-  }
-
-  @Get('joined')
-  getJoined(@CurrentTenant() tenant: TenantContext) {
-    return this.me.getJoined(tenant);
-  }
-
-  @Get('referrals')
-  getReferrals(@CurrentTenant() tenant: TenantContext) {
-    return this.me.getReferrals(tenant);
-  }
-
-  @Get('b-portal')
-  bPortal(@CurrentTenant() tenant: TenantContext) {
-    return this.me.getBPortal(tenant);
-  }
+  @Get() getMe(@CurrentTenant() t: TenantContext) { return this.me.getMe(t); }
+  @Get('favorites') getFavorites(@CurrentTenant() t: TenantContext) { return this.me.getFavorites(t); }
+  @Get('joined') getJoined(@CurrentTenant() t: TenantContext) { return this.me.getJoined(t); }
+  @Get('referrals') getReferrals(@CurrentTenant() t: TenantContext) { return this.me.getReferrals(t); }
+  @Get('b-portal') bPortal(@CurrentTenant() t: TenantContext) { return this.me.getBPortal(t); }
+  @Post('withdraw') withdraw(@CurrentTenant() t: TenantContext, @Body() dto: WithdrawDto) { return this.me.withdraw(t, dto.amount); }
 }

@@ -24,6 +24,7 @@ export default function MainLayout() {
     { key: '/admin/b', icon: <CrownOutlined />, label: 'B端管理' },
     { key: '/admin/projects', icon: <ProjectOutlined />, label: '项目审核' },
     { key: '/admin/dashboard', icon: <HomeOutlined />, label: '看板' },
+    { key: '/admin/scene', icon: <TeamOutlined />, label: '千人千面' },
   ];
 
   const menuItems = isAdmin ? adminItems : bItems;
